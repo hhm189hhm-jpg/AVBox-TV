@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+      TV 形态专属声明，与 main 的 AndroidManifest 合并。
+
+      leanback 特性保持 required=false：国内大量盒子（小米/当贝/各类 AOSP 盒子）
+      并不声明 android.software.leanback，写成 true 会在 Play 侧被过滤，
+      部分渠道安装器也会拒装。真正决定能否出现在 TV 桌面的是
+      LEANBACK_LAUNCHER 这个 category。
+
+      这里只覆盖 android:screenOrientation —— main 里没有声明，不会冲突。
+      configChanges 不在 tv manifest 里改，避免与 main 的声明撞车导致 merger 失败；
+      横屏的运行时保证由 BaseActivity.orientationPolicyValue() 负责。
+    -->
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.faketouch"
+        android:required="false" />
+
+    <application android:banner="@drawable/tv_banner">
+
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.LivePlayActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.DetailActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.MusicPlayerActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.SearchActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.PartitionListActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ThemeSettingsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.ConfigManageActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.PlaySettingsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".ui.PreferenceSettingsActivity"
+            android:screenOrientation="landscape" />
+    </application>
+
+</manifest>
